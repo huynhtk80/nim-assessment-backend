@@ -1,23 +1,26 @@
 const mongoose = require("../db.js");
 
-const menuItemsSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true
+const menuItemsSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    imageUrl: {
+      type: String
+    }
   },
-  price: {
-    type: Number,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  imageUrl: {
-    type: String
-  }
-});
+  { timestamps: true }
+);
 menuItemsSchema.set("toJSON", {
   virtuals: true
 });
@@ -51,4 +54,11 @@ const create = async (body) => {
   }
 };
 
-module.exports = { getAll, getOne, create, MenuItems };
+const findByIdAndUpdate = async (id, body) => {
+  const menuItem = await MenuItems.findByIdAndUpdate(id, body, {
+    new: true
+  });
+  return menuItem;
+};
+
+module.exports = { getAll, getOne, create, MenuItems, findByIdAndUpdate };

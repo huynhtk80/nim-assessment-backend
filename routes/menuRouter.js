@@ -5,6 +5,7 @@ const menuRouter = Router();
 
 menuRouter.get("/", menuController.getAll);
 menuRouter.get("/:id", menuController.getOne);
+menuRouter.put("/:id", menuController.findByIdAndUpdate);
 menuRouter.post("/", menuController.create);
 
 module.exports = menuRouter;
