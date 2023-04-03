@@ -36,4 +36,23 @@ const findByIdAndUpdate = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOne, create, findByIdAndUpdate };
+const findByIdAndDelete = async (req, res) => {
+  try {
+    const menu = await MenuItems.findByIdAndDelete(req.params.id);
+    if (menu === null) {
+      res.status(500).send("no Item with ID found");
+    } else {
+      res.send(menu.id);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+module.exports = {
+  getAll,
+  getOne,
+  create,
+  findByIdAndUpdate,
+  findByIdAndDelete
+};
